@@ -1,11 +1,13 @@
 ---
 - name: Deploy Docker container with React app using Apache
-  hosts: localhost
+  hosts: all
   gather_facts: no
+
   tasks:
-    - name: Install Docker Python module
-      pip:
+    - name: Start Docker service
+      service:
         name: docker
+        state: started
 
     - name: Ensure /tmp/network directory exists
       file:
@@ -28,23 +30,9 @@
           - /tmp/network:/usr/local/apache2/htdocs
         networks:
           - name: apache_network
-            ipv4_address: 172.168.10.2
-            
+
+
     - name: Copy React app build files to the host
       copy:
-        src: /Users/admin/projects/network/index.html
-        dest: /tmp/network
-
-    - name: Retrieving IP
-      command: docker inspect --format="{{'{{'}}range .NetworkSettings.Networks{{'}}'}}{{'{{'}}.IPAddress{{'}}'}}{{'{{'}}end{{'}}'}}" react_container
-      register: ip
-    
-    - name: Inventory update
-      blockinfile:
-        path: /Users/admin/projects/network/ip.txt
-        block: |
-                [target]
-                {{ ip.stdout }} ansible_user=root ansible_ssh_pass=root ansible_connection=ssh
-
-    - debug:
-        msg: "{{ ip.stdout }}"
+        src: /home/muthu/Retro/
+        dest: /tmp/network/
