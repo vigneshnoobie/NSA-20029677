@@ -6,7 +6,7 @@
   tasks:
     - name: Start Docker service
       service:
-        name: docker
+        name: podman
         state: started
 
     - name: Ensure /tmp/network directory exists
