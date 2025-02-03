@@ -1,5 +1,5 @@
 # NSA-20029677
-Network Systems and Administration CA 2024 - 20029677
+Network Systems and Administration 
 
 
 Kindly find the yaml file named as docker_deploy.yml
